@@ -1,0 +1,108 @@
+{
+  // ==========================================================================
+  // Copy this file to `config.json` and edit it. `config.json` is gitignored.
+  //
+  // Every key under "defaults" can be overridden per mirror.
+  // Whole-line // comments like this one are allowed and stripped on load.
+  //
+  // Run `npm run list` to print every guild / channel / role id you can see.
+  // ==========================================================================
+
+  "defaults": {
+    // --- how each mirrored message is labelled -----------------------------
+    "nameStyle": "nickname",        // nickname -> display name -> username fallback
+    "usernamePrefix": "",
+    "usernameSuffix": "",
+    "showSourceChannel": false,     // prepend a small "#channel" subtext line
+    "accentColor": 5793266,         // decimal colour for reply / forward / poll embeds
+
+    // --- media -------------------------------------------------------------
+    "attachments": {
+      // reupload = download and re-post so files live in YOUR server forever.
+      // Source CDN links are signed and expire, so "link" mode eventually rots.
+      "mode": "reupload",           // reupload | link | both | off
+      "maxFileBytes": 24000000,     // ~24MB. Raise to ~49MB (Boost L2) / ~99MB (L3)
+      "maxTotalBytes": 24000000,    // per message; oversize files fall back to links
+      "maxFiles": 10
+    },
+
+    // --- replies -----------------------------------------------------------
+    "replies": {
+      "enabled": true,
+      "style": "embed",             // embed | quote
+      "maxLength": 200,             // characters of the quoted excerpt
+      "fetchMissing": true          // fetch the original if the gateway didn't inline it
+    },
+
+    // --- what else to carry across -----------------------------------------
+    "embeds": "rich",               // rich = author-made only (no duplicate link previews)
+    "stickers": true,
+    "polls": true,
+    "forwards": true,               // Discord's "forward message" feature
+    "componentsV2": true,           // flatten Components-V2 messages into markdown
+    "threads": "inline",            // inline | off — thread messages tagged with a spool
+    "systemMessages": false,        // join / boost / pin notices
+    "mirrorEdits": true,
+    "mirrorDeletes": true,
+
+    // --- who gets mirrored -------------------------------------------------
+    "filters": {
+      "ignoreBots": false,
+      "ignoreWebhooks": false,
+      "ignoreSelf": true,           // don't mirror your own account's messages
+      "ignoreUserIds": [],
+      "onlyUserIds": [],            // allowlist; empty means everyone
+      "includeRegex": null,         // only mirror when content matches
+      "excludeRegex": null,         // skip when content matches
+      "ignoreEmpty": true
+    },
+
+    // --- ping translation --------------------------------------------------
+    // Values may be a bare role id (expanded to a role ping), "<@&id>",
+    // the literal "@everyone" / "@here", or any plain text.
+    "mentions": {
+      "everyone": null,             // what a real @everyone becomes; null = no ping
+      "here": null,
+      "roles": {},                  // { "sourceRoleId": "destRoleId" }, "*" = catch-all
+      "users": {},                  // { "sourceUserId": "destUserId" }, rarely needed
+      "unmappedRoles": "text",      // text (inert "@RoleName") | keep | strip
+      "unmappedUsers": "text"
+    }
+  },
+
+  // ==========================================================================
+  // One entry per destination channel.
+  // ==========================================================================
+  "mirrors": [
+    {
+      "name": "main",
+      // One source channel id, or an array of them, all feeding this webhook.
+      "source": ["111111111111111111"],
+      // Reference .env so secrets stay out of this file. A raw URL also works.
+      "webhook": "env:WEBHOOK_MAIN",
+
+      "mentions": {
+        // Any role pinged in the source pings this one role in your server.
+        "roles": { "*": "222222222222222222" },
+        // ...and @everyone / @here ping it too. Use "@everyone" for a real
+        // server-wide ping instead.
+        "everyone": "222222222222222222",
+        "here": "222222222222222222"
+      }
+    }
+
+    // A second mirror, showing per-mirror overrides:
+    //
+    // {
+    //   "name": "announcements",
+    //   "source": ["333333333333333333"],
+    //   "webhook": "env:WEBHOOK_ANNOUNCEMENTS",
+    //   "showSourceChannel": true,
+    //   "filters": { "ignoreBots": true },
+    //   "mentions": {
+    //     "everyone": "@everyone",
+    //     "roles": { "444444444444444444": "555555555555555555" }
+    //   }
+    // }
+  ]
+}

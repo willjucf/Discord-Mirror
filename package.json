@@ -1,0 +1,27 @@
+{
+  "name": "discord-mirror",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mirror Discord channels into webhooks with role/mention remapping, replies, media and edits.",
+  "type": "module",
+  "engines": {
+    "node": ">=20.10.0"
+  },
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts",
+    "list": "tsx src/tools/list.ts",
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/ws": "^8.5.13",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

@@ -1,0 +1,19 @@
+# --- secrets: never commit these ---
+.env
+.env.*
+!.env.example
+config.json
+
+# --- build output ---
+dist/
+
+# --- dependencies ---
+node_modules/
+
+# --- misc ---
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
