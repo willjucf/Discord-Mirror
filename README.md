@@ -6,9 +6,9 @@ Built against the current Discord API (v10) and current message features: the ne
 
 > ### ⚠️ Read this before using it
 >
-> This drives a **user account** with a script — "self-botting". It violates [Discord's Terms of Service](https://discord.com/terms) and the account can be permanently disabled for it. That is inherent to mirroring a server you don't run; there is no compliant way to do it with a user token.
+> This drives a **user account** with a script. It is unlikely but possible that discord could disable an account for this.
 >
-> Use an account you can afford to lose. If you have bot access to the source server, use a real bot instead — it's supported, safe, and this codebase ports over with only the gateway IDENTIFY changing.
+> Use an account you can afford to lose. 
 
 ---
 
@@ -75,7 +75,7 @@ Without these the ping renders as a ping but silently notifies nobody.
 ### 1. Install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/discord-mirror.git
+git clone https://github.com/willjucf/Discord-Mirror.git
 cd discord-mirror
 npm install
 ```
